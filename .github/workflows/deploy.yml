@@ -3,29 +3,17 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Change this to the branch you want to trigger the action
+      - main  # Change to your default branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'  # Use the desired version of Node.js
-
-    - name: Build project
-      run: |
-        # Add your build command here, e.g.:
-        npm install
-        npm run build
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GH_TOKEN }}
-        publish_dir: ./path-to-your-build-directory  # Change this to your actual build directory
+      - name: Setup Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}  # Reference your secret
+          publish_dir: ./public  # Change to your output directory
